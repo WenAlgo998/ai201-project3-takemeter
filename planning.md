@@ -42,6 +42,23 @@ To achieve high mutual exclusivity and clean data boundaries, the discourse is d
 - **The Conflict:** This sits perfectly on the boundary between `hot_take` (due to subjective insult framing: "zero championship mentality", "total fraud") and `technical_analysis` (due to referencing a verifiable stat: "lost the lead on Lap 1 four times").
 - **Explicit Decision Rule:** To be classified as `technical_analysis`, the text must use its data to build an objective explanatory argument or mechanical hypothesis. If a statistic is merely weaponized to validate an emotional insult or subjective character judgment, it defaults to a `hot_take`. Because the example above uses data as decoration for a sweeping subjective claim, it is officially classified as a **`hot_take`**.
 
+### Documented Production Edge Cases (Milestone 3 Audit)
+
+1. **Edge Case 1 (The Fact-Based Vent)**
+    - _Text:_ "Mercedes brought a massive sidepod upgrade package to Monaco of all places, and Hamilton still qualified P6. Total absolute waste of factory resources. This concept is completely broken and Elliot should be fired twice."
+    - _The Conflict:_ Touches on technical facts (sidepod upgrade package brought to Monaco, qualified P6) which mimics `technical_analysis`, but pivots into extreme emotional venting and non-analytical demands (" Elliot should be fired twice").
+    - _Decision & Rule:_ **`emotional_reaction`**. The technical details function purely as context for a visceral emotional explosion rather than an analytical structural model.
+
+2. **Edge Case 2 (The Data-Mocking Speculation)**
+    - _Text:_ "People keep posting telemetry graphs showing Perez was braking 15 meters earlier than Max into Turn 1. Let's be real: he isn't struggling with compliance or brake-by-wire settings, he's simply mentally broken by his teammate."
+    - _The Conflict:_ References genuine engineering metrics (telemetry graphs, braking 15 meters earlier, brake-by-wire settings), but dismisses them to state a highly speculative psychological opinion.
+    - _Decision & Rule:_ **`hot_take`**. While it contains engineering keywords, the post rejects empirical structural explanations in favor of a bold, unprovable claim about driver psychology.
+
+3. **Edge Case 3 (The Sarcastic Engineering Metric)**
+    - _Text:_ "Wow, fantastic strategy choice guys. Pitting under the safety car when we have a 12-second tire delta over the trailing cars was a brilliant way to hand our podium position straight to McLaren."
+    - _The Conflict:_ Uses technical terminology ("safety car", "12-second tire delta") but frames it entirely through heavy sarcasm to express immediate frustration.
+    - _Decision & Rule:_ **`emotional_reaction`**. Sarcasm that uses technical vocabulary to express distress or anger without building a forward-looking, objective performance model remains a reaction.
+
 ---
 
 ## 4. Data Collection & Imbalance Plan
