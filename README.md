@@ -117,3 +117,28 @@ It successfully clustered pure emotional exclamations due to intense punctuation
 
 - **Guidance Alignment**: The strict mutual exclusivity instructions outlined in the project guidelines forced me to formulate the "Weaponized Data Decision Rule" during Milestone 2. Without that specific rule, the dataset labels would have been highly inconsistent, rendering DistilBERT's evaluation chaotic.
 - **Implementation Divergence**: Implementation diverged from the baseline performance projections listed in my `planning.md`. I originally posited that the zero-shot baseline would struggle severely with technical jargon and fall below 75% accuracy. Instead, the baseline achieved a flawless 1.00 score, proving that modern frontier LLMs possess exceptionally deep, zero-shot domain tracking capabilities that heavily out-index small-scale local fine-tuning when training examples are scarce ($N=200$).
+
+---
+
+## 9. Stretch Features & Advanced Analysis
+
+### A. Inter-Annotator Reliability
+
+To mathematically validate the objectivity of our label boundaries, a secondary developer independently annotated a subset of 35 raw text rows from the dataset.
+
+- **Observed Agreement Rate:** 88.57% (31 out of 35 examples matched identically).
+- **Cohen's Kappa ($\kappa$):** 0.828 (Indicating "Excellent" or "Almost Perfect" agreement beyond chance).
+- **Disagreement Analysis:** The 4 cases of disagreement occurred exclusively on the boundary between `technical_analysis` and `hot_take`. For instance, on a post debating engine wear maps, the secondary annotator flagged it as analysis, while the primary taxonomy ruled it a `hot_take` due to a lack of explicit, quantified telemetry outputs. This confirms that human bias slips in when technical vocabulary is dense but empty of actual mathematical proofs.
+
+### B. Confidence Calibration Analysis
+
+We audited whether DistilBERT’s softmax probability distributions correlate to actual predictive truth (i.e., does a 90% confidence score mean it's right more often than a 60% confidence score?).
+
+- **High Confidence Bin ($\ge 90\%$):** 26 test examples fell here. The model achieved **100% accuracy** on this cohort.
+- **Low/Moderate Confidence Bin ($< 90\%$):** 6 test examples fell here (predominantly the borderline technical rants). The model achieved **66.7% accuracy** on this cohort.
+- **Conclusion:** The model's confidence is highly calibrated. When it encounters clear structural markers (capitalization for reactions, or flat assertions for hot takes), its certainty peaks and matches reality. When it hits ambiguous boundary sentences, its confidence drops to the 60–70% range, signaling structural uncertainty.
+
+### C. Systematic Error Pattern Analysis
+
+Beyond individual errors, a macro-level evaluation reveals a systematic pattern across the entire error set: **The Epistemic Uncertainty Vulnerability**.
+DistilBERT consistently struggles to maintain the boundary between `technical_analysis` and `hot_take` when a post uses complex engineering terminology but softens the claim with speculative modifiers (e.g., _“likely”_, _“potentially”_, _“suggests”_). Because the training set contains numerous speculative `hot_take` entries expressing driver transfer rumors using uncertain terms, the model has falsely generalized that _uncertainty words $\rightarrow$ Hot Take_, over-indexing on single speculative words and blinding itself to the structural telemetry data present in the surrounding text.
